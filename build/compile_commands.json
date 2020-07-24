@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/naohisa/Desktop/CPU_design/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9    -g   -o CMakeFiles/test_proj.dir/main.cpp.o -c /home/naohisa/Desktop/CPU_design/main.cpp",
+  "file": "/home/naohisa/Desktop/CPU_design/main.cpp"
+}
+]
