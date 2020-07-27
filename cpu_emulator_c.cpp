@@ -121,5 +121,24 @@ void main(void) {
 }
 
 void assembler(void) {
-    
+    rom[0]  =   ldh(REG0, 0);
+    rom[1]  =   ldl(REG0, 0);
+    rom[2]  =   ldh(REG1, 0);
+    rom[3]  =   ldl(REG1, 1);
+    rom[4]  =   ldh(REG2, 0);
+    rom[5]  =   ldl(REG2, 0);
+    rom[6]  =   ldh(REG3, 0);
+    rom[7]  =   ldl(REG3, 10);
+    rom[8]  =   add(REG2, REG1);
+    rom[9]  =   add(REG0, REG2);
+    rom[10]  =   st(REG0, 64);
+    rom[11]  =   cmp(REG2, REG3);
+    rom[12]  =   je(14);
+    rom[13]  =   jmp(8);
+    rom[14]  =   hlt();
+}
+
+short mov(short ra, short rb) {
+    return ((MOV << 11) | (ra << 8) | (rb << 5));
+
 }
