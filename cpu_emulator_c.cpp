@@ -58,7 +58,7 @@ short op_regB(short);
 short op_data(short);
 short op_addr(short);
 
-void main(void) {
+int main(void) {
 
     short pc;       //program counter.
     short ir;       //instruction register.
@@ -70,7 +70,7 @@ void main(void) {
     pc = 0;
     flag_eq = 0;
 
-    do{
+    do {
         ir = rom[pc]; //rom position
         printf("%5d %5x %5d %5d %5d %5d \n",
         pc, ir, reg[0], reg[1], reg[2], reg[3]);
@@ -95,15 +95,15 @@ void main(void) {
                         break;
         case    SRA :   reg[op_regA(ir)] = (reg[op_regA(ir)] & 0x8000) | (reg[op_regA(ir)] >> 1);
                         break;
-        case    LDL :   reg[op_regA(ir)] = (reg[op_regA(ir)] & 0xff00) | (reg[op_data(ir)] & 0x00ff);
+        case    LDL :   reg[op_regA(ir)] = (reg[op_regA(ir)] & 0xff00) | (op_data(ir) & 0x00ff);
                         break;
-        case    LDH :   reg[op_regA(ir)] = (reg[op_regA(ir)] << 8) | (reg[op_data(ir)] & 0x00ff);
+        case    LDH :   reg[op_regA(ir)] = (op_data(ir) << 8) | (reg[op_regA(ir)] & 0x00ff);
                         break;
         case    CMP :   if(reg[op_regA(ir)] == reg[op_regB(ir)]) {
                             flag_eq = 1;
                         }else{
                             flag_eq = 0;
-                        };
+                        }
                         break;
         case    JE  :   if(flag_eq == 1) pc = op_addr(ir);
                         break;
@@ -117,10 +117,12 @@ void main(void) {
 
         }
     } while(op_code(ir) != HLT);
-    printf("ram[64 = %d \n]", ram[64]);
+    printf("ram[64] = %d \n]", ram[64]);
+    return 0;
 }
 
 void assembler(void) {
+    //assembly code for sum of 1 ~ 10
     rom[0]  =   ldh(REG0, 0);
     rom[1]  =   ldl(REG0, 0);
     rom[2]  =   ldh(REG1, 0);
@@ -140,5 +142,84 @@ void assembler(void) {
 
 short mov(short ra, short rb) {
     return ((MOV << 11) | (ra << 8) | (rb << 5));
+}
 
+short add(short ra, short rb) {
+    return ((ADD<< 11) | (ra << 8) | (rb << 5));
+}
+
+short sub(short ra, short rb) {
+    return ((SUB << 11) | (ra << 8) | (rb << 5));
+}
+
+short And(short ra, short rb) {
+    return((AND << 11) | (ra << 8) | (rb << 5));
+}
+
+short Or(short ra, short rb) {
+    return((OR << 11) | (ra << 8) | (rb << 5));
+}
+
+short sl(short ra) {
+	return ((SL << 11) | (ra << 8));
+}
+
+short sr(short ra) {
+	return ((SR << 11) | (ra << 8));
+}
+
+short sra(short ra) {
+	return ((SRA << 11) | (ra << 8));
+}
+
+short ldl(short ra, short ival) {
+	return ((LDL << 11) | (ra << 8) | (ival & 0x00ff));
+}
+
+short ldh(short ra, short ival) {
+	return ((LDH << 11) | (ra << 8) | (ival & 0x00ff));
+}
+
+short cmp(short ra, short rb) {
+	return ((CMP << 11) | (ra << 8) | (rb << 5));
+}
+
+short je(short addr) {
+	return ((JE << 11) | (addr & 0x00ff));
+}
+
+short jmp(short addr) {
+	return ((JMP << 11) | (addr & 0x00ff));
+}
+
+short ld(short ra, short addr) {
+	return ((LD << 11) | (ra << 8) | (addr & 0x00ff));
+}
+
+short st(short ra, short addr) {
+	return ((ST << 11) | (ra << 8) | (addr & 0x00ff));
+}
+
+short hlt(void) {
+	return (HLT << 11);
+}
+
+short op_code(short ir) {
+	return  (ir >> 11);
+}
+
+short op_regA(short ir) {
+	return ((ir >> 8) & 0x0007);
+}
+
+short op_regB(short ir) {
+	return ((ir >> 5) & 0x0007);
+}
+
+short op_data(short ir) {
+	return (ir & 0x00ff);
+}
+
+short op_addr(short ir) {
+	return (ir & 0x00ff);
 }
