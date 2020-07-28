@@ -28,9 +28,9 @@ REG6 = 6
 REG7 = 7
 
 #memory
-reg = []
-rom = []
-ram = []
+reg = [0 for i in range(8)]
+rom = [0 for i in range(256)]
+ram = [0 for i in range(256)]
 
 def assembler():
     #assembly code for sum of 1 to 10
@@ -60,86 +60,86 @@ def main():
 
     assembler()
 
-    while(int(op_code(ir), 2) != HLT):
+    while(op_code(ir)!= HLT):
 
         ir = rom[pc] #rom position
         print("{} {} {} {} {} {} \n" .format(pc, ir, reg[0], reg[1], reg[2], reg[3]))
     
         pc = pc + 1
 
-        if int(op_code(ir), 2) == MOV:
+        if op_code(ir)== MOV:
             reg[op_regA(ir)] = reg[op_regB(ir)]
             break
 
-        elif int(op_code(ir), 2) == ADD:
+        elif op_code(ir)== ADD:
             reg[op_regA(ir)] = reg[op_regA(ir)] + reg[op_regB(ir)]
             break
 
-        elif int(op_code(ir), 2) == SUB:
+        elif op_code(ir)== SUB:
             reg[op_regA(ir)] = reg[op_regA(ir)] - reg[op_regB(ir)]
             break
 
-        elif int(op_code(ir), 2) == AND:
+        elif op_code(ir)== AND:
             reg[op_regA(ir)] = reg[op_regA(ir)] & reg[op_regB(ir)]
             break
 
-        elif int(op_code(ir), 2) == OR:
+        elif op_code(ir)== OR:
             reg[op_regA(ir)] = reg[op_regA(ir)] | reg[op_regB(ir)]
             break
 
-        elif int(op_code(ir), 2) == SL:
-            reg[op_regA(ir)] = reg[op_regA(ir)] << 1
+        elif op_code(ir)== SL:
+            reg[op_regA(ir)] = int(bin(reg[op_regA(ir)] << 1), 2)
             break
 
-        elif int(op_code(ir), 2) == SR:
-            reg[op_regA(ir)] = reg[op_regA(ir)] >> 1
+        elif op_code(ir)== SR:
+            reg[op_regA(ir)] = int(bin(reg[op_regA(ir)] >> 1), 2)
             break
 
-        elif int(op_code(ir), 2) == SRA:
-            reg[op_regA(ir)] = (reg[op_regA(ir)]) and (bin(int("8000", 16)) or (reg[op_regA(ir)] >> 1))
+        elif op_code(ir)== SRA:
+            reg[op_regA(ir)] = (reg[op_regA(ir)] & int(bin(0x8000), 2)) | int(bin(reg[op_regA(ir)] >> 1), 2)
             break
 
-        elif int(op_code(ir), 2) == LDL:
-            reg[op_regA(ir)] = (reg[op_regA(ir)]) and (bin(int("ff00", 16)) or (op_data(ir) and bin(int("ff00", 16))))
+        elif op_code(ir)== LDL:
+            reg[op_regA(ir)] = (reg[op_regA(ir)] & int(bin(0xff00), 2)) | (op_data(ir) & int(bin(0xff00, 2)))
             break
 
-        elif int(op_code(ir), 2) == LDH:
-            reg[op_regA(ir)] = (op_data(ir) << 8) or (reg[op_regA(ir)] and bin(int("00ff", 16)))
+        elif op_code(ir)== LDH:
+            reg[op_regA(ir)] = int(bin(op_data(ir) << 8), 2) | (reg[op_regA(ir)] & int(bin(0x00ff), 2))
             break
 
-        elif int(op_code(ir), 2) == CMP:
+        elif op_code(ir)== CMP:
             if(reg[op_regA(ir)] == reg[op_regB(ir)]):
                 flag_eq = 1
             else:
                 flag_eq = 0
             break
 
-        elif int(op_code(ir), 2) == JE:
-            if(flag_eq == 1):
+        elif op_code(ir)== JE:
+            if flag_eq == 1:
                 pc = op_addr(ir)
             break
 
-        elif int(op_code(ir), 2) == JMP:
+        elif op_code(ir)== JMP:
             pc = op_addr(ir)
             break
         
-        elif int(op_code(ir), 2) == LD:
+        elif op_code(ir)== LD:
             reg[op_regA(ir)] = ram[op_addr(ir)]
             break
 
-        elif int(op_code(ir), 2) == ST:
+        elif op_code(ir)== ST:
             ram[op_addr(ir)] = reg[op_regA(ir)]
             break
 
         else:
             break
 
-    printf("ram[64] = {} \n]" .format(ram[64]))
+    print("ram[64] = {} \n]" .format(ram[64]))
     return 0
 
 
 #definitions of functions
-#return values are all int type.
+#inputs to functions and return values are all int type.
 def mov(ra, rb):
     return int(bin(MOV << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)
 
@@ -147,43 +147,43 @@ def add(ra, rb):
     return int(bin(ADD << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)
 
 def sub(ra, rb):
-    return bin(SUB << 11) or bin(ra << 8) or bin(rb << 5)
+    return int(bin(SUB << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)
 
 def And(ra, rb):
-    return bin(AND << 11) or bin(ra << 8) or bin(rb << 5)
+    return int(bin(AND << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)
 
 def Or(ra, rb):
-    return bin(OR << 11) or bin(ra << 8) or bin(rb << 5)
+    return int(bin(OR << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)
 
 def sl(ra):
-	return bin(SL << 11) or bin(ra << 8)
+	return int(bin(SL << 11), 2) | int(bin(ra << 8), 2)
 
 def sr(ra):
-	return bin(SR << 11) or bin(ra << 8)
+	return int(bin(SR << 11), 2) | int(bin(ra << 8), 2)
 
 def sra(ra):
-	return bin(SRA << 11) or bin(ra << 8)
+	return int(bin(SRA << 11), 2) | int(bin(ra << 8), 2)
 
 def ldl(ra, ival):
-	return bin(LDL << 11) or bin(ra << 8) or (bin(ival) and bin(0xff))
+	return int(bin(LDL << 11), 2) | int(bin(ra << 8), 2) | (ival & int(bin(0x00ff), 2))
 
 def ldh(ra, ival):
-	return int(bin(LDH << 11), 2) | int(bin(ra << 8), 2) | (ival & int(bin(0xff), 2))
+	return int(bin(LDH << 11), 2) | int(bin(ra << 8), 2) | (ival & int(bin(0x00ff), 2))
 
 def Cmp(ra, rb):
-	return bin(CMP << 11) or bin(ra << 8) or bin(rb << 5)
+	return int(bin(CMP << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)
 
 def je(addr):
-	return bin(JE << 11) or (bin(addr) and bin(int("ff", 16)))
+	return int(bin(JE << 11), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))
 
 def jmp(addr):
-	return bin(JMP << 11) or (bin(addr) and bin(int("ff", 16)))
+	return int(bin(JMP << 11), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))
 
 def ld(ra, addr):
-	return bin(LD << 11) or bin(ra << 8) or (bin(addr) and bin(int("ff", 16)))
+	return int(bin(LD << 11), 2) | int(bin(ra << 8), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))
 
 def st(ra, addr):
-	return bin(ST << 11) or bin(ra << 8) or (bin(addr) and bin(int("ff", 16)))
+	return int(bin(ST << 11), 2) | int(bin(ra << 8), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))
 
 def hlt():
 	return int(bin(HLT << 11), 2)
@@ -192,15 +192,15 @@ def op_code(ir):
 	return  int(bin(ir >> 11), 2)
 
 def op_regA(ir):
-	return bin(ir >> 8) and bin(int("07", 16))
+	return int(bin(ir >> 8), 2) & int(bin(0x0007), 2)
 
 def op_regB(ir):
-	return bin(ir >> 5) and bin(int("07", 16))
+	return int(bin(ir >> 5), 2) & int(bin(0x0007), 2)
 
 def op_data(ir):
-	return ir and bin(int("ff", 16))
+	return int(bin(ir), 2) & int(bin(0x00ff), 2)
 
 def op_addr(ir):
-	return ir and bin(int("ff", 16))
+    return int(bin(ir), 2) & int(bin(0x00ff), 2)
 
 main()
