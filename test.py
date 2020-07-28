@@ -54,7 +54,7 @@ def sra(ra):
 	return int(bin(SRA << 11), 2) | int(bin(ra << 8), 2)
 
 def ldl(ra, ival):
-	return int(bin(LDL << 11), 2) | int(bin(ra << 8), 2) | (ival, 2) & int(bin(0x00ff), 2))
+	return int(bin(LDL << 11), 2) | int(bin(ra << 8), 2) | (ival & int(bin(0x00ff), 2))
 
 def ldh(ra, ival):
 	return int(bin(LDH << 11), 2) | int(bin(ra << 8), 2) | (ival & int(bin(0x00ff), 2))
@@ -87,23 +87,16 @@ def op_regB(ir):
 	return int(bin(ir >> 5), 2) & int(bin(0x0007), 2)
 
 def op_data(ir):
-	return int(bin(ir), 2) & int(bin(0x00ff), 2))
+	return int(bin(ir), 2) & int(bin(0x00ff), 2)
 
 def op_addr(ir):
-    return int(bin(ir), 2) & int(bin(0x00ff), 2))
+    return int(bin(ir), 2) & int(bin(0x00ff), 2)
 
 
 
-result = bin(ldh(REG0, ival))
-result = bin(mov(REG0, REG2))
-result = bin(add(REG0, REG2))
-halt = hlt()
-result = op_code(halt)
-result = bin(sub(0 ,0))
-result = bin(And(0, 0))
-result = bin(Or(0, 0))
-result = bin(sl(0))
-
+result = bin(ldh(3, 0))
 print(result)
-#print(len(result[2:]))
-#print(result[2:])
+print(bin(4800))
+
+0b100101100000000
+1001011000000

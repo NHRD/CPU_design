@@ -63,76 +63,58 @@ def main():
     while(op_code(ir)!= HLT):
 
         ir = rom[pc] #rom position
-        print("{} {} {} {} {} {} \n" .format(pc, ir, reg[0], reg[1], reg[2], reg[3]))
+        print("{} {} {} {} {} {}" .format(pc, hex(ir)[2:], reg[0], reg[1], reg[2], reg[3]))
     
         pc = pc + 1
 
         if op_code(ir)== MOV:
             reg[op_regA(ir)] = reg[op_regB(ir)]
-            break
 
         elif op_code(ir)== ADD:
             reg[op_regA(ir)] = reg[op_regA(ir)] + reg[op_regB(ir)]
-            break
 
         elif op_code(ir)== SUB:
             reg[op_regA(ir)] = reg[op_regA(ir)] - reg[op_regB(ir)]
-            break
 
         elif op_code(ir)== AND:
             reg[op_regA(ir)] = reg[op_regA(ir)] & reg[op_regB(ir)]
-            break
 
         elif op_code(ir)== OR:
             reg[op_regA(ir)] = reg[op_regA(ir)] | reg[op_regB(ir)]
-            break
 
         elif op_code(ir)== SL:
             reg[op_regA(ir)] = int(bin(reg[op_regA(ir)] << 1), 2)
-            break
 
         elif op_code(ir)== SR:
             reg[op_regA(ir)] = int(bin(reg[op_regA(ir)] >> 1), 2)
-            break
 
         elif op_code(ir)== SRA:
             reg[op_regA(ir)] = (reg[op_regA(ir)] & int(bin(0x8000), 2)) | int(bin(reg[op_regA(ir)] >> 1), 2)
-            break
 
         elif op_code(ir)== LDL:
-            reg[op_regA(ir)] = (reg[op_regA(ir)] & int(bin(0xff00), 2)) | (op_data(ir) & int(bin(0xff00, 2)))
-            break
+            reg[op_regA(ir)] = (reg[op_regA(ir)] & int(bin(0xff00), 2)) | (op_data(ir) & int(bin(0xff00), 2))
 
         elif op_code(ir)== LDH:
             reg[op_regA(ir)] = int(bin(op_data(ir) << 8), 2) | (reg[op_regA(ir)] & int(bin(0x00ff), 2))
-            break
 
         elif op_code(ir)== CMP:
             if(reg[op_regA(ir)] == reg[op_regB(ir)]):
                 flag_eq = 1
             else:
                 flag_eq = 0
-            break
 
         elif op_code(ir)== JE:
             if flag_eq == 1:
                 pc = op_addr(ir)
-            break
 
         elif op_code(ir)== JMP:
             pc = op_addr(ir)
-            break
         
         elif op_code(ir)== LD:
             reg[op_regA(ir)] = ram[op_addr(ir)]
-            break
 
         elif op_code(ir)== ST:
             ram[op_addr(ir)] = reg[op_regA(ir)]
-            break
-
-        else:
-            break
 
     print("ram[64] = {} \n]" .format(ram[64]))
     return 0
@@ -203,6 +185,6 @@ def op_data(ir):
 def op_addr(ir):
     return int(bin(ir), 2) & int(bin(0x00ff), 2)
 
-if __name__ == "__main__":
-    
+#if __name__ == "__main__":
+
 main()

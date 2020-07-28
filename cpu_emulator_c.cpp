@@ -173,6 +173,10 @@ short sra(short ra) {
 }
 
 short ldl(short ra, short ival) {
+    //short val;
+    //printf("%5d %5x \n",ra, ival);
+    //val = ((LDL << 11) | (ra << 8) | (ival & 0x00ff));
+    //printf("val = %5x \n", val);
 	return ((LDL << 11) | (ra << 8) | (ival & 0x00ff));
 }
 
