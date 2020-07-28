@@ -203,4 +203,6 @@ def op_data(ir):
 def op_addr(ir):
     return int(bin(ir), 2) & int(bin(0x00ff), 2)
 
+if __name__ == "__main__":
+    
 main()
