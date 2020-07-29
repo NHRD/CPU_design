@@ -27,7 +27,9 @@ REG7 = 7
 
 ival = 0
 
-
+reg = [0 for i in range(8)]
+rom = [0 for i in range(256)]
+ram = [0 for i in range(256)]
 
 def mov(ra, rb):
     return int(bin(MOV << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)
@@ -94,9 +96,9 @@ def op_addr(ir):
 
 
 
-result = bin(ldh(3, 0))
-print(result)
-print(bin(4800))
+ir = ldh(REG1, 1)
+print(hex(ir))
 
-0b100101100000000
-1001011000000
+result = (reg[op_regA(ir)] & int(bin(0xff00), 2)) | (op_data(ir) & int(bin(0xff00), 2))
+
+print(result)

@@ -63,7 +63,7 @@ def main():
     while(op_code(ir)!= HLT):
 
         ir = rom[pc] #rom position
-        print("{} {} {} {} {} {}" .format(pc, hex(ir)[2:], reg[0], reg[1], reg[2], reg[3]))
+        print("{:5d} {:>5} {:5d} {:5d} {:5d} {:5d}" .format(pc, hex(ir)[2:], reg[0], reg[1], reg[2], reg[3]))
     
         pc = pc + 1
 
@@ -72,6 +72,8 @@ def main():
 
         elif op_code(ir)== ADD:
             reg[op_regA(ir)] = reg[op_regA(ir)] + reg[op_regB(ir)]
+            #print("ADD", end=" ")
+            #print(reg[op_regA(ir)])
 
         elif op_code(ir)== SUB:
             reg[op_regA(ir)] = reg[op_regA(ir)] - reg[op_regB(ir)]
@@ -92,13 +94,19 @@ def main():
             reg[op_regA(ir)] = (reg[op_regA(ir)] & int(bin(0x8000), 2)) | int(bin(reg[op_regA(ir)] >> 1), 2)
 
         elif op_code(ir)== LDL:
-            reg[op_regA(ir)] = (reg[op_regA(ir)] & int(bin(0xff00), 2)) | (op_data(ir) & int(bin(0xff00), 2))
+            reg[op_regA(ir)] = (reg[op_regA(ir)] & int(bin(0xff00), 2)) | (op_data(ir) & int(bin(0x00ff), 2))
+            #print("LDL", end=" ")
+            #print(reg[op_regA(ir)])
 
         elif op_code(ir)== LDH:
             reg[op_regA(ir)] = int(bin(op_data(ir) << 8), 2) | (reg[op_regA(ir)] & int(bin(0x00ff), 2))
+            #print("LDH", end=" ")
+            #print(reg[op_regA(ir)])
 
         elif op_code(ir)== CMP:
             if(reg[op_regA(ir)] == reg[op_regB(ir)]):
+                #print("CMP", end=" ")
+                #print(reg[op_regA(ir)])
                 flag_eq = 1
             else:
                 flag_eq = 0
@@ -126,6 +134,8 @@ def mov(ra, rb):
     return int(bin(MOV << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)
 
 def add(ra, rb):
+    #print("ra = {}, rb = {}" .format(ra, rb))
+    #print(hex(int(bin(ADD << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)))
     return int(bin(ADD << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)
 
 def sub(ra, rb):
@@ -147,25 +157,37 @@ def sra(ra):
 	return int(bin(SRA << 11), 2) | int(bin(ra << 8), 2)
 
 def ldl(ra, ival):
-	return int(bin(LDL << 11), 2) | int(bin(ra << 8), 2) | (ival & int(bin(0x00ff), 2))
+    #print("ra = {}, ival = {}" .format(ra, ival))
+    #print(hex(int(bin(LDL << 11), 2) | int(bin(ra << 8), 2) | (ival & int(bin(0x00ff), 2))))
+    return int(bin(LDL << 11), 2) | int(bin(ra << 8), 2) | (ival & int(bin(0x00ff), 2))
 
 def ldh(ra, ival):
-	return int(bin(LDH << 11), 2) | int(bin(ra << 8), 2) | (ival & int(bin(0x00ff), 2))
+    #print("ra = {}, ival = {}" .format(ra, ival))
+    #print(hex(int(bin(LDH << 11), 2) | int(bin(ra << 8), 2) | (ival & int(bin(0x00ff), 2))))
+    return int(bin(LDH << 11), 2) | int(bin(ra << 8), 2) | (ival & int(bin(0x00ff), 2))
 
 def Cmp(ra, rb):
-	return int(bin(CMP << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)
+    #print("ra = {}, rb = {}" .format(ra, rb))
+    #print(hex(int(bin(CMP << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)))
+    return int(bin(CMP << 11), 2) | int(bin(ra << 8), 2) | int(bin(rb << 5), 2)
 
 def je(addr):
-	return int(bin(JE << 11), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))
+    #print(addr)
+    #print(hex(int(bin(JE << 11), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))))
+    return int(bin(JE << 11), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))
 
 def jmp(addr):
-	return int(bin(JMP << 11), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))
+    #print(addr)
+    #print(hex(int(bin(JMP << 11), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))))
+    return int(bin(JMP << 11), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))
 
 def ld(ra, addr):
 	return int(bin(LD << 11), 2) | int(bin(ra << 8), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))
 
 def st(ra, addr):
-	return int(bin(ST << 11), 2) | int(bin(ra << 8), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))
+    #print("ra = {}, addr = {}" .format(ra, addr))
+    #print(hex(int(bin(ST << 11), 2) | int(bin(ra << 8), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))))
+    return int(bin(ST << 11), 2) | int(bin(ra << 8), 2) | (int(bin(addr), 2) & int(bin(0x00ff), 2))
 
 def hlt():
 	return int(bin(HLT << 11), 2)

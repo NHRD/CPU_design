@@ -1,0 +1,1 @@
+reg[op_regA(ir)] = (reg[op_regA(ir)] & int(bin(0xff00),2)) | (op_data(ir) & int(bin(0x00ff), 2))

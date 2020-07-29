@@ -82,6 +82,7 @@ int main(void) {
         case    MOV :   reg[op_regA(ir)] = reg[op_regB(ir)];
                         break;
         case    ADD :   reg[op_regA(ir)] = reg[op_regA(ir)] + reg[op_regB(ir)];
+                        //printf("ADD %5d\n", reg[op_regA(ir)]);
                         break;
         case    SUB :   reg[op_regA(ir)] = reg[op_regA(ir)] - reg[op_regB(ir)];
                         break;
@@ -96,10 +97,13 @@ int main(void) {
         case    SRA :   reg[op_regA(ir)] = (reg[op_regA(ir)] & 0x8000) | (reg[op_regA(ir)] >> 1);
                         break;
         case    LDL :   reg[op_regA(ir)] = (reg[op_regA(ir)] & 0xff00) | (op_data(ir) & 0x00ff);
+                        //printf("LDL %5d\n", reg[op_regA(ir)]);
                         break;
         case    LDH :   reg[op_regA(ir)] = (op_data(ir) << 8) | (reg[op_regA(ir)] & 0x00ff);
+                        //printf("LDH %5d\n", reg[op_regA(ir)]);
                         break;
         case    CMP :   if(reg[op_regA(ir)] == reg[op_regB(ir)]) {
+                            //printf("CMP %5d\n", reg[op_regA(ir)]);
                             flag_eq = 1;
                         }else{
                             flag_eq = 0;
@@ -145,6 +149,10 @@ short mov(short ra, short rb) {
 }
 
 short add(short ra, short rb) {
+    /*short val;
+    printf("%5d %5x \n",ra, rb);
+    val = ((ADD<< 11) | (ra << 8) | (rb << 5));
+    printf("val = %5x \n", val);*/
     return ((ADD<< 11) | (ra << 8) | (rb << 5));
 }
 
@@ -173,26 +181,42 @@ short sra(short ra) {
 }
 
 short ldl(short ra, short ival) {
-    //short val;
-    //printf("%5d %5x \n",ra, ival);
-    //val = ((LDL << 11) | (ra << 8) | (ival & 0x00ff));
-    //printf("val = %5x \n", val);
+    /*short val;
+    printf("%5d %5x \n",ra, ival);
+    val = ((LDL << 11) | (ra << 8) | (ival & 0x00ff));
+    printf("val = %5x \n", val);*/
 	return ((LDL << 11) | (ra << 8) | (ival & 0x00ff));
 }
 
 short ldh(short ra, short ival) {
+    /*short val;
+    printf("%5d %5x \n",ra, ival);
+    val = ((LDH << 11) | (ra << 8) | (ival & 0x00ff));
+    printf("val = %5x \n", val);*/
 	return ((LDH << 11) | (ra << 8) | (ival & 0x00ff));
 }
 
 short cmp(short ra, short rb) {
+    /*short val;
+    printf("%5d %5x \n",ra, rb);
+    val = ((CMP << 11) | (ra << 8) | (rb << 5));
+    printf("val = %5x \n", val);*/
 	return ((CMP << 11) | (ra << 8) | (rb << 5));
 }
 
 short je(short addr) {
+    short val;
+    /*printf("%5d\n",addr);
+    val = ((JE << 11) | (addr & 0x00ff));
+    printf("val = %5x \n", val);*/
 	return ((JE << 11) | (addr & 0x00ff));
 }
 
 short jmp(short addr) {
+    /*short val;
+    printf("%5d\n",addr);
+    val = ((JMP << 11) | (addr & 0x00ff));
+    printf("val = %5x \n", val);*/
 	return ((JMP << 11) | (addr & 0x00ff));
 }
 
@@ -201,6 +225,10 @@ short ld(short ra, short addr) {
 }
 
 short st(short ra, short addr) {
+    /*short val;
+    printf("%5d %5d \n",ra, addr);
+    val = ((ST << 11) | (ra << 8) | (addr & 0x00ff));
+    printf("val = %5x \n", val);*/
 	return ((ST << 11) | (ra << 8) | (addr & 0x00ff));
 }
 
