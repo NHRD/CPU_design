@@ -42,3 +42,34 @@ begin
             CO  =>  CO_TMP0 
         );
 
+    C2  :   full_adder
+        port map(
+            A   =>  AIN(1),
+            B   =>  BIN(1),
+            CI  =>  CO_TMP0,
+            S   =>  SUM(1),
+            CO  =>  CO_TMP1 
+        );
+
+    C3  :   full_adder
+        port map(
+            A   =>  AIN(2),
+            B   =>  BIN(2),
+            CI  =>  CO_TMP1,
+            S   =>  SUM(2),
+            CO  =>  CO_TMP2 
+        );
+    
+    C4  :   full_adder
+        port map(
+            A   =>  AIN(3),
+            B   =>  BIN(3),
+            CI  =>  CO_TMP2,
+            S   =>  SUM(3),
+            CO  =>  SUM(4)
+        );
+        
+end RTL;
+
+    
+
