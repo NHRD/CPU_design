@@ -1,4 +1,4 @@
-module seg7dec(
+module SEG7DEC(
     input [3:0] SW,
     output reg [6:0] HEX0
 );
