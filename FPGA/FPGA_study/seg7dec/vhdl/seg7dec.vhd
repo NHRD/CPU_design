@@ -1,14 +1,14 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-entity dec_7seg is
+entity seg7dec is
 	port(
 		SW		:	in std_logic_vector(3 downto 0);
 		HEX0	:	out std_logic_vector(6 downto 0)
 	);
-end dec_7seg;
+end seg7dec;
 
-architecture RTL of dec_7seg is
+architecture RTL of seg7dec is
 
 begin
 	process(SW)
