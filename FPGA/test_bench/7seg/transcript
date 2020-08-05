@@ -1,17 +1,32 @@
 # Loading project dec_7seg_sim
-vsim work.dec_7seg_sim
-# vsim work.dec_7seg_sim 
-# Start time: 18:29:24 on Aug 05,2020
+# reading /home/naohisa/intelFPGA_lite/20.1/modelsim_ase/linuxaloem/../modelsim.ini
+# Loading project count10_sim
+# Compile of count10.vhd was successful.
+# Compile of count10_sim.vhd failed with 1 errors.
+# 2 compiles, 1 failed with 1 error.
+# Compile of count10_sim.vhd failed with 1 errors.
+# Compile of count10.vhd was successful.
+# Compile of count10_sim.vhd was successful.
+# 2 compiles, 0 failed with no errors.
+vsim work.count10_sim
+# vsim work.count10_sim 
+# Start time: 23:08:16 on Aug 05,2020
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
 # Loading ieee.std_logic_arith(body)
 # Loading ieee.std_logic_unsigned(body)
-# Loading work.dec_7seg_sim(sim)
-# Loading work.dec_7seg(rtl)
-add wave -position end  sim:/dec_7seg_sim/DIN
-add wave -position end  sim:/dec_7seg_sim/SEG7
+# Loading work.count10_sim(sim)
+# Loading work.count10(rtl)
+add wave -position end  sim:/count10_sim/CLK
+add wave -position end  sim:/count10_sim/RST
 run
 run -all
-# End time: 18:32:22 on Aug 05,2020, Elapsed time: 0:02:58
-# Errors: 0, Warnings: 1
+add wave -position end  sim:/count10_sim/COUNT
+add wave -position end  sim:/count10_sim/CLK
+add wave -position end  sim:/count10_sim/RST
+add wave -position end  sim:/count10_sim/COUNT
+# Break key hit
+# Simulation stop requested.
+# End time: 23:10:28 on Aug 05,2020, Elapsed time: 0:02:12
+# Errors: 0, Warnings: 9

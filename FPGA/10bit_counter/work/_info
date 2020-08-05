@@ -1,0 +1,101 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+d/hdd/CPU_design/FPGA/test_bench/7seg
+Ecount10
+Z0 w1596634311
+Z1 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+Z2 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 3
+Z5 d/hdd/CPU_design/FPGA/10bit_counter
+Z6 8/hdd/CPU_design/FPGA/10bit_counter/count10.vhd
+Z7 F/hdd/CPU_design/FPGA/10bit_counter/count10.vhd
+l0
+L5 1
+V2JgZ?;;:]VZa`iodRl=X:3
+!s100 l2jkOFFg82B_B535PJUG11
+Z8 OV;C;2020.1;71
+32
+Z9 !s110 1596636455
+!i10b 1
+Z10 !s108 1596636455.000000
+Z11 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/hdd/CPU_design/FPGA/10bit_counter/count10.vhd|
+Z12 !s107 /hdd/CPU_design/FPGA/10bit_counter/count10.vhd|
+!i113 1
+Z13 o-work work -2002 -explicit
+Z14 tExplicit 1 CvgOpt 0
+Artl
+R1
+R2
+R3
+R4
+DEx4 work 7 count10 0 22 2JgZ?;;:]VZa`iodRl=X:3
+!i122 3
+l17
+L13 21
+VkjYRdmzd04RemWz]iQGMX0
+!s100 JO33<IKe30>gBC=k<mMB<2
+R8
+32
+R9
+!i10b 1
+R10
+R11
+R12
+!i113 1
+R13
+R14
+Ecount10_sim
+Z15 w1596636447
+R1
+R2
+R3
+R4
+!i122 4
+R5
+Z16 8/hdd/CPU_design/FPGA/10bit_counter/count10_sim.vhd
+Z17 F/hdd/CPU_design/FPGA/10bit_counter/count10_sim.vhd
+l0
+L5 1
+VPalCb;AOfY8Q1NO9i`hYU3
+!s100 5O]kDJl^OEPa:R<REX6Vk3
+R8
+32
+R9
+!i10b 1
+R10
+Z18 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|/hdd/CPU_design/FPGA/10bit_counter/count10_sim.vhd|
+!s107 /hdd/CPU_design/FPGA/10bit_counter/count10_sim.vhd|
+!i113 1
+R13
+R14
+Asim
+R1
+R2
+R3
+R4
+DEx4 work 11 count10_sim 0 22 PalCb;AOfY8Q1NO9i`hYU3
+!i122 4
+l24
+L8 39
+V72NAl9Mc=U`XJBD`MP^KF1
+!s100 Hm7380m46QTdR3[Bg2c7_2
+R8
+32
+R9
+!i10b 1
+R10
+R18
+Z19 !s107 /hdd/CPU_design/FPGA/10bit_counter/count10_sim.vhd|
+!i113 1
+R13
+R14
