@@ -1,0 +1,17 @@
+# Loading project and_or_sim
+# Load canceled
+vsim work.and_or_sim
+# vsim work.and_or_sim 
+# Start time: 17:54:45 on Aug 05,2020
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.and_or_sim(sim)
+# Loading work.and_or(rtl)
+add wave -position end  sim:/and_or_sim/AT
+add wave -position end  sim:/and_or_sim/BT
+add wave -position end  sim:/and_or_sim/Z_ANDT
+add wave -position end  sim:/and_or_sim/Z_ORT
+run
+# End time: 17:56:48 on Aug 05,2020, Elapsed time: 0:02:03
+# Errors: 0, Warnings: 1

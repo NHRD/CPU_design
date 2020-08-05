@@ -24,12 +24,12 @@ signal Z_ORT    :   std_logic;
 begin
     
     C1  :   and_or
-        port_map(
+        port map(
             A       =>  AT,
             B       =>  BT,
-            Z_AMD   =>  Z_ANDT,
+            Z_AND   =>  Z_ANDT,
             Z_OR    =>  Z_ORT
-        )
+        );
     
     process begin
 
@@ -49,4 +49,4 @@ begin
         
     end process;
 
-    end SIM;
+end SIM;
