@@ -32,5 +32,6 @@ begin
             when "1111" =>  SEG7    <=  "0001110";
 			when others	=>	SEG7	<=	"1111111";
 		end case;
+		end case;
 	end process;
 end RTL;
