@@ -187,4 +187,105 @@ begin
 			OP_CODE	=>	OP_CODE,
 			OP_DATA	=>	OP_DATA
 		);
+
+	C4	:	reg_dc
+		port map(
+			CLK_DC	=>	CLK_DC,
+			N_REG_IN	=>	PROM_OUT(10 downto 8),
+			REG_0	=>	REG_0,
+			REG_1	=>	REG_1,
+			REG_2	=>	REG_2,
+			REG_3	=>	REG_3,
+			REG_4	=>	REG_4,
+			REG_5	=>	REG_5,
+			REG_6	=>	REG_6,
+			REG_7	=>	REG_7,
+			N_REG_OUT	=>	N_REG_A,
+			REG_OUT	=>	REG_A
+		);
+
+	C5	:	reg_dc
+		port map(
+			CLK_DC	=>	CLK_DC,
+			N_REG_IN	=>	PROM_OUT(7 downto 5),
+			REG_0	=>	REG_0,
+			REG_1	=>	REG_1,
+			REG_2	=>	REG_2,
+			REG_3	=>	REG_3,
+			REG_4	=>	REG_4,
+			REG_5	=>	REG_5,
+			REG_6	=>	REG_6,
+			REG_7	=>	REG_7,
+			N_REG_OUT	=>	N_REG_B,
+			REG_OUT	=>	REG_B
+		);
+	
+	C6	:	ram_dc
+		port map(
+			CLK_DC	=>	CLK_DC,
+			RAM_AD_IN	=>	PROM_OUT(7 downto 0),
+			RAM_0	=>	RAM_0,
+			RAM_1	=>	RAM_1,
+			RAM_2	=>	RAM_2,
+			RAM_3	=>	RAM_3,
+			RAM_4	=>	RAM_4,
+			RAM_5	=>	RAM_5,
+			RAM_6	=>	RAM_6,
+			RAM_7	=>	RAM_7,
+			IO65_IN	=>	IO65_IN,
+			RAM_AD_OUT	=>	RA<_ADDR,
+			RAM_OUT	=>	RAM_OUT
+		);
+	
+	C7	: exec
+		port map(
+			CLK_EX	=>	CLK_EX,
+			RESET_N	=>	RESET_N,
+			OP_CODE	=>	OP_CODE,
+			REG_A	=>	REG_A,
+			REG_B	=>	REG_B,
+			OP_DATA	=>	OP_DATA,
+			RAM_OUT	=>	RAM_OUT,
+			P_COUNT	=>	P_COUNT,
+			REG_IN	=>	REG_IN,
+			RAM_IN	=>	RAM_IN,
+			REG_WEN	=>	RAM_WEN,
+			RAM_WEN	=>	RAM_WEN
+		);
+
+	C8	:	reg_wb
+		port map(
+			CLK_WB	=>	CLK_WB,
+			RESET_N	=>	RESET_N,
+			N_REG	=>	N_REG_A,
+			REG_IN	=>	REG_IN,
+			REG_WEN	=>	REG_WEN,
+			REG_0	=>	REG_0,
+			REG_1	=>	REG_1,
+			REG_2	=>	REG_2,
+			REG_3	=>	REG_3,
+			REG_4	=>	REG_4,
+			REG_5	=>	REG_5,
+			REG_6	=>	REG_6,
+			REG_7	=>	REG_7
+		);
+	
+	C9	:	ram_wb
+		port map(
+			CLK_WB	=>	CLK_WB,
+			RAM_ADDR	=>	RAM_ADDR,
+			RAM_IN	=>	RAM_IN,
+			RAM_WEN	=>	RAM_WEN,
+			RAM_0	=>	RAM_0,
+			RAM_1	=>	RAM_1,
+			RAM_2	=>	RAM_2,
+			RAM_3	=>	RAM_3,
+			RAM_4	=>	RAM_4,
+			RAM_5	=>	RAM_5,
+			RAM_6	=>	RAM_6,
+			RAM_7	=>	RAM_7,
+			IO64_OUT	=>	IO64_OUT
+		);
+
+end RTL;
 	
