@@ -98,5 +98,20 @@ component exec
 		OP_DATA		:	in std_logic_vector(7 downto 0);
 		RAM_OUT		:	in std_logic_vector(15 downto 0);
 		P_COUNT		:	out std_logic_vector(7 downto 0);
-		
-	)
+		REG_IN		:	out std_logic_vector(15 downto 0);
+		RAM_IN		:	out std_logic_vector(15 downto 0);
+		REG_WEN		:	out std_logic;
+		RAM_WEN		:	out std_logic
+	);
+end component;
+
+--reg_wb
+component reg_wb
+	port
+	(
+		CLK_WB		:	in std_logic;
+		RESET_N		:	in std_logic;
+		N_REG		:	in std_logic_vector(2 downto 0);
+		REG_IN		:	in std_logic_vector(15 downto 0);
+
+	);
