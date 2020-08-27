@@ -47,7 +47,7 @@ component decode
 	);
 end component;
 
---reg_dc
+--_dc
 component reg_dc
 	port
 	(
@@ -113,5 +113,78 @@ component reg_wb
 		RESET_N		:	in std_logic;
 		N_REG		:	in std_logic_vector(2 downto 0);
 		REG_IN		:	in std_logic_vector(15 downto 0);
-
+		RAM_WEN		:	in std_logic;
+		RAM_0		:	out std_logic_vector(15 downto 0);
+		RAM_1		:	out std_logic_vector(15 downto 0);
+		RAM_2		:	out std_logic_vector(15 downto 0);
+		RAM_3		:	out std_logic_vector(15 downto 0);
+		RAM_4		:	out std_logic_vector(15 downto 0);
+		RAM_5		:	out std_logic_vector(15 downto 0);
+		RAM_6		:	out std_logic_vector(15 downto 0);
+		RAM_7		:	out std_logic_vector(15 downto 0);
+		IO64_OUT	:	out std_logic_vector(15 downto 0)
 	);
+end component;
+
+--internal signals
+signal CLK_FT	:	std_logic;
+signal CLK_DC	:	std_logic;
+signal CLK_EX	:	std_logic;
+signal CLK_WB	:	std_logic;
+signal P_COUNT	:	std_logic_vector(7 downto 0);
+signal PROM_OUT	:	std_logic_vector(14 downto 0);
+signal OP_CODE	:	std_logic_vector(3 downto 0);
+signal OP_DATA	:	std_logic_vector(7 downto 0);
+signal N_REG_A	:	std_logic_vector(2 downto 0);
+signal N_REG_B	:	std_logic_vector(2 downto 0);
+signal REG_IN	:	std_logic_vector(15 downto 0);
+signal REG_A	:	std_logic_vector(15 downto 0);
+signal REG_B	:	std_logic_vector(15 downto 0);
+signal REG_WEN	:	std_logic;
+signal REG_0	:	std_logic_vector(15 downto 0);
+signal REG_1	:	std_logic_vector(15 downto 0);
+signal REG_2	:	std_logic_vector(15 downto 0);
+signal REG_3	:	std_logic_vector(15 downto 0);
+signal REG_4	:	std_logic_vector(15 downto 0);
+signal REG_5	:	std_logic_vector(15 downto 0);
+signal REG_6	:	std_logic_vector(15 downto 0);
+signal REG_7	:	std_logic_vector(15 downto 0);
+signal RAM_ADDR	:	std_logic_vector(7 downto 0);
+signal RAM_IN	:	std_logic_vector(15 downto 0);
+signal RAM_OUT	:	std_logic_vector(15 downto 0);
+signal RAM_WEN	:	std_logic;
+signal RAM_0	:	std_logic_vector(15 downto 0);
+signal RAM_1	:	std_logic_vector(15 downto 0);
+signal RAM_2	:	std_logic_vector(15 downto 0);
+signal RAM_3	:	std_logic_vector(15 downto 0);
+signal RAM_4	:	std_logic_vector(15 downto 0);
+signal RAM_5	:	std_logic_vector(15 downto 0);
+signal RAM_6	:	std_logic_vector(15 downto 0);
+signal RAM_7	:	std_logic_vector(15 downto 0);
+
+begin
+--clk_gen
+	C1	:	clk_gen
+		port map(
+			CLK	=>	CLK,
+			CLK_FT	=>	CLK_FT,
+			CLK_DC	=>	CLK_DC,
+			CLK_EX	=>	CLK_EX,
+			CLK_WB	=>	CLK_WB	
+		);
+	
+	C2	:	fetch
+		port map(
+			CLK_FT	=>	CLK_FT,
+			P_COUNT	=>	P_COUNT,
+			PROM_OUT	=>	PROM_OUT
+		);
+	
+	C3	:	decode
+		port map(
+			CLK_DC	=>	CLK_DC,
+			PROM_OUT	=>	PROM_OUT,
+			OP_CODE	=>	OP_CODE,
+			OP_DATA	=>	OP_DATA
+		);
+	
