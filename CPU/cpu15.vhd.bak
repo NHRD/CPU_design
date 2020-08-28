@@ -233,7 +233,7 @@ begin
 			RAM_6	=>	RAM_6,
 			RAM_7	=>	RAM_7,
 			IO65_IN	=>	IO65_IN,
-			RAM_AD_OUT	=>	RAM_ADDR,
+			RAM_AD_OUT	=>	RA<_ADDR,
 			RAM_OUT	=>	RAM_OUT
 		);
 	
